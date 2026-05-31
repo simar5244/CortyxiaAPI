@@ -14,7 +14,7 @@ One API swap adds persistent memory, observability, and 40% token cost reduction
 
 </div>
 
-## 🚀 What is Cortyxia?
+## What is Cortyxia?
 
 Cortyxia is a memory layer that sits between your application and any LLM provider (Anthropic, Google, DeepSeek, xAI, Llama, Groq, and more). It wraps around your existing API workflow and adds:
 
@@ -25,7 +25,7 @@ Cortyxia is a memory layer that sits between your application and any LLM provid
 - **Private memory keys** — Every project gets isolated context that cannot cross-contaminate
 - **OSuite Observability** — Deep AI observability with model comparison, prompt metrics, and guardrail checks
 
-## 📦 Installation
+## Installation
 
 ### TypeScript / JavaScript
 
@@ -71,7 +71,7 @@ res = client.chat.completions.create(
 print(res["choices"][0]["message"]["content"])
 ```
 
-## ⚡ How It Works
+## How It Works
 
 1. You send a message through the SDK (or any HTTP client)
 2. Cortyxia retrieves relevant memory from your project's knowledge base
@@ -79,7 +79,7 @@ print(res["choices"][0]["message"]["content"])
 4. Request is forwarded to your configured provider
 5. Response is captured and scored for future retrieval
 
-## ✨ Features
+## Features
 
 ### Cumulative Intelligence
 Every resolved ticket, strategic decision, and customer conversation enriches your shared memory. New team members inherit years of knowledge on day one.
@@ -93,7 +93,7 @@ Real-time bidirectional synchronization keeps every connected app in lockstep. N
 ### Drop-in Compatibility
 No refactoring required. Import, add your token, and keep using your existing code.
 
-## 🔧 Configuration
+## Configuration
 
 ### TypeScript
 
@@ -115,7 +115,7 @@ client = Cortyxia(
 )
 ```
 
-## 🎯 Advanced Usage
+## Advanced Usage
 
 ### Memory Seeding (Bulk Import)
 
@@ -141,22 +141,19 @@ const hits = await client.memory.query("vegetarian preferences", 5);
 hits = client.memory.query("vegetarian preferences", limit=5)
 ```
 
-## 📊 Verified Results
+## Verified Results
 
 - **40%** token cost reduction at Texas Tech Online
 - **2.3M tokens/day** production workload baseline
 - **Millions of messages** processed in 2-week pilot
 - **100% traceability** across all interactions
 
-## 🔗 Links
+## Links
 
 - **Website:** https://www.cortyxia.com
 - **Documentation:** https://docs.cortyxia.com
 - **GitHub:** https://github.com/simar5244/CortyxiaAPI
 
-## 📄 License
-
-MIT License — see [LICENSE](LICENSE) for details.
 
 ---
 

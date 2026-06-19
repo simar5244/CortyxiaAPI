@@ -1,166 +1,255 @@
-<div align="center">
-
 # Cortyxia
 
-**The Memory Layer for Enterprise AI**
+[![npm](https://img.shields.io/npm/v/cortyxia)](https://www.npmjs.com/package/cortyxia)
+[![PyPI](https://img.shields.io/pypi/v/cortyxia)](https://pypi.org/project/cortyxia/)
+[![License](https://img.shields.io/badge/license-MIT-blue)](https://github.com/simar5244/CortyxiaAPI/blob/main/LICENSE)
 
-[![npm version](https://badge.fury.io/js/cortyxia.svg)](https://www.npmjs.com/package/cortyxia)
-[![PyPI version](https://badge.fury.io/py/cortyxia.svg)](https://pypi.org/project/cortyxia/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+> **The Memory Layer for Enterprise AI.**
+> Drop-in persistent memory. 40% fewer tokens. One line to get started.
 
-One API swap adds persistent memory, observability, and 40% token cost reduction to any LLM stack.
+[Website](https://cortyxia.com) · [Docs](https://cortyxia.com/docs) · [PyPI](https://pypi.org/project/cortyxia/) · [npm](https://www.npmjs.com/package/cortyxia)
 
 ---
 
-</div>
+## Why Cortyxia?
 
-## What is Cortyxia?
+Building LLM apps that "remember" across sessions shouldn't require a PhD in vector databases, embedding pipelines, or context-window math.
 
-Cortyxia is a memory layer that sits between your application and any LLM provider (Anthropic, Google, DeepSeek, xAI, Llama, Groq, and more). It wraps around your existing API workflow and adds:
+Cortyxia is a **drop-in memory layer** — swap your `openai.chat.completions.create()` for ours, and suddenly your app remembers everything. No schema design. No Pinecone setup. No chunking strategies. It just works.
 
-- **Persistent memory** — Every conversation enriches a shared knowledge base that compounds over time
-- **Zero-overhead capture** — Use any AI exactly as you do today; context is automatically captured and structured at the infrastructure layer
-- **Precision retrieval** — BM25 + semantic reranking surfaces exactly the memory your model needs, keeping prompts lean
-- **Model-agnostic** — Switch providers instantly without changing your code
-- **Private memory keys** — Every project gets isolated context that cannot cross-contaminate
-- **OSuite Observability** — Deep AI observability with model comparison, prompt metrics, and guardrail checks
+Under the hood: a memory node infrastructure with multi-tier graph mechanisms (raw → indexed → entity-linked) and separate node architecture per tier. ONNX extractors, cross-encoder reranking, and semantic relevance scoring run at the proxy layer — sub-50ms routing overhead, zero prompt changes, fully compatible with whatever RAG or vector DB you're already running.
+
+### What you get
+
+- **Persistent memory** — conversations, facts, and context survive restarts
+- **40% token cost reduction** — intelligent context assembly sends only what matters
+- **Multi-provider routing** — OpenAI, Anthropic, Gemini, DeepSeek, xAI via one ISO token
+- **Project isolation** — separate memory namespaces per team/project
+- **Dev mode keys** — isolated context windows for agentic coding workflows
+
+### What you DON'T need
+
+- No vector DB setup (Pinecone, Weaviate, Chroma, etc.)
+- No embedding pipeline
+- No chunking / token-counting logic
+- No config files to manage
+- No signup forms — just an email
+
+---
 
 ## Installation
 
-### TypeScript / JavaScript
-
-```bash
-npm install cortyxia
-```
-
-```typescript
-import { Cortyxia } from "cortyxia";
-
-const client = new Cortyxia({
-  isoUrl:  "https://proxy.cortyxia.com",
-  isoToken: "iso-...",  // Your Cortyxia project token
-});
-
-// Automatic memory injection — zero code changes beyond this
-const res = await client.chat.completions.create({
-  messages: [{ role: "user", content: "What did we discuss yesterday?" }],
-});
-
-console.log(res.choices[0].message.content);
-```
-
-### Python
+**Python**
 
 ```bash
 pip install cortyxia
 ```
 
-```python
-from cortyxia import Cortyxia
+**TypeScript / Node.js**
 
-client = Cortyxia(
-    iso_url="https://proxy.cortyxia.com",
-    iso_token="iso-...",  # Your Cortyxia project token
-)
-
-# Automatic memory injection — zero code changes beyond this
-res = client.chat.completions.create(
-    messages=[{"role": "user", "content": "What did we discuss yesterday?"}]
-)
-
-print(res["choices"][0]["message"]["content"])
+```bash
+npm install cortyxia
 ```
-
-## How It Works
-
-1. You send a message through the SDK (or any HTTP client)
-2. Cortyxia retrieves relevant memory from your project's knowledge base
-3. Retrieved context is injected into the prompt
-4. Request is forwarded to your configured provider
-5. Response is captured and scored for future retrieval
-
-## Features
-
-### Cumulative Intelligence
-Every resolved ticket, strategic decision, and customer conversation enriches your shared memory. New team members inherit years of knowledge on day one.
-
-### Token-Efficient Memory
-Smart routing and semantic caching reduces total token usage 40-60%. Hot nodes rank higher, stale context gets deprioritized, and prompts stay lean.
-
-### Cross-Platform Sync
-Real-time bidirectional synchronization keeps every connected app in lockstep. Native integrations with Salesforce, HubSpot, Zendesk, ServiceNow, Jira, Slack, Teams, and more.
-
-### Drop-in Compatibility
-No refactoring required. Import, add your token, and keep using your existing code.
-
-## Configuration
-
-### TypeScript
-
-```typescript
-const client = new Cortyxia({
-  isoUrl:     "https://proxy.cortyxia.com",  // Required
-  isoToken:   "iso-...",                     // Required — your project token
-  timeout:    60000,                         // Optional — ms (default: 60000)
-});
-```
-
-### Python
-
-```python
-client = Cortyxia(
-    iso_url="https://proxy.cortyxia.com",   # Required
-    iso_token="iso-...",                     # Required — your project token
-    timeout=60,                               # Optional — seconds (default: 60)
-)
-```
-
-## Advanced Usage
-
-### Memory Seeding (Bulk Import)
-
-**TypeScript:**
-```typescript
-await client.memory.add("User is a vegetarian", ["diet", "preference"]);
-```
-
-**Python:**
-```python
-client.memory.add("User is a vegetarian", tags=["diet", "preference"])
-```
-
-### Direct Memory Query
-
-**TypeScript:**
-```typescript
-const hits = await client.memory.query("vegetarian preferences", 5);
-```
-
-**Python:**
-```python
-hits = client.memory.query("vegetarian preferences", limit=5)
-```
-
-## Verified Results
-
-- **40%** token cost reduction at Texas Tech Online
-- **2.3M tokens/day** production workload baseline
-- **Millions of messages** processed in 2-week pilot
-- **100% traceability** across all interactions
-
-## Links
-
-- **Website:** https://www.cortyxia.com
-- **Documentation:** https://docs.cortyxia.com
-- **GitHub:** https://github.com/simar5244/CortyxiaAPI
-
 
 ---
 
-<div align="center">
+## The 30-Second Test
 
-**The Memory Layer for Enterprise AI**
+Create a `.env` file:
 
-Made with ❤️ by [Cortyxia](https://www.cortyxia.com)
+```bash
+CORTYXIA_EMAIL=you@example.com
+API_KEY=your_provider_key
+API_PROVIDER=openai
+API_MODEL=gpt-4o
+```
 
-</div>
+**Python**
+
+```python
+from cortyxia import Cortyxia
+
+client = Cortyxia()
+key = client.initialize()  # Creates project + key
+
+resp = client.chat.completions.create(
+    messages=[{"role": "user", "content": "My name is Alice"}]
+)
+
+# Later, new session:
+resp2 = client.chat.completions.create(
+    messages=[{"role": "user", "content": "What's my name?"}]
+)
+# It remembers.
+```
+
+**TypeScript**
+
+```typescript
+import { Cortyxia } from "cortyxia";
+
+const client = await Cortyxia.create();
+const key = await client.initialize();
+
+const resp = await client.chat.completions.create({
+  messages: [{ role: "user", content: "My name is Alice" }],
+});
+
+// Later, new session:
+const resp2 = await client.chat.completions.create({
+  messages: [{ role: "user", content: "What's my name?" }],
+});
+// It remembers.
+```
+
+No database connection strings. No index creation. One package. One line. Done.
+
+---
+
+## Migrating from OpenAI / LangChain / Raw HTTP
+
+**Python**
+
+```python
+# Before
+import openai
+client = openai.OpenAI(api_key="sk-...")
+resp = client.chat.completions.create(model="gpt-4o", messages=[...])
+
+# After
+from cortyxia import Cortyxia
+client = Cortyxia()
+resp = client.chat.completions.create(messages=[...])  # model auto-resolved
+```
+
+**TypeScript**
+
+```typescript
+// Before
+import OpenAI from "openai";
+const client = new OpenAI({ apiKey: "sk-..." });
+const resp = await client.chat.completions.create({ model: "gpt-4o", messages: [...] });
+
+// After
+import { Cortyxia } from "cortyxia";
+const client = await Cortyxia.create();
+const resp = await client.chat.completions.create({ messages: [...] });
+```
+
+Your prompts don't change. Your message format doesn't change. The response shape is identical. If you don't like it, remove the import and go back. No lock-in.
+
+---
+
+## API Overview
+
+### Chat
+
+```python
+# Python
+resp = client.chat.completions.create(messages=[...])
+```
+
+```typescript
+// TypeScript
+const resp = await client.chat.completions.create({ messages: [...] });
+```
+
+### Memory
+
+```python
+# Python
+client.memory.add("User prefers Rust", ["preference"])
+results = client.memory.query("What language?", limit=5)
+```
+
+```typescript
+// TypeScript
+await client.memory.add("User prefers Rust", ["preference"]);
+const results = await client.memory.query("What language?", 5);
+```
+
+### Projects
+
+```python
+# Python
+projects = client.projects.list()
+project = client.projects.create("Agentic Coding", shared_memory_enabled=True)
+```
+
+```typescript
+// TypeScript
+const projects = await client.projects.list();
+const project = await client.projects.create("Agentic Coding", true);
+```
+
+### Keys
+
+```python
+# Python
+key = client.keys.create(
+    project_id=client.project_id,
+    label="Production",
+    provider="openai",
+    model="gpt-4o",
+    provider_key="sk-..."
+)
+```
+
+```typescript
+// TypeScript
+const key = await client.keys.create(client.projectId!, {
+  label: "Production",
+  provider: "openai",
+  model: "gpt-4o",
+  openaiKey: "sk-...",
+});
+```
+
+Full API reference: [cortyxia.com/docs](https://cortyxia.com/docs)
+
+---
+
+## SDKs
+
+| SDK | Install | Docs |
+|-----|---------|------|
+| Python | `pip install cortyxia` | [PyPI](https://pypi.org/project/cortyxia/) |
+| TypeScript | `npm install cortyxia` | [npm](https://www.npmjs.com/package/cortyxia) |
+
+---
+
+## FAQ
+
+**"What if Cortyxia goes down? Do my prompts break?"**
+
+Your prompts don't change. The response shape is identical to OpenAI's. If Cortyxia is unavailable, swap back to your original provider in one line. Your code stays the same.
+
+**"Do I need to redesign my app architecture?"**
+
+No. If you're already calling `chat.completions.create()`, you change the import. That's it. Memory happens automatically in the background.
+
+**"What about my existing vector DB / RAG pipeline?"**
+
+You can keep it. Cortyxia handles the "I talked to this user 3 days ago" memory layer. Your RAG pipeline handles the "here are the docs" layer. They complement each other.
+
+**"How much does this cost?"**
+
+Generous free tier — try it out or run small projects at no cost. You only pay for your LLM provider usage. And because Cortyxia assembles smarter context, you typically use **fewer tokens** — so your bill goes down, not up.
+
+**"Is my data safe?"**
+
+- Credentials stored locally with `0600` (Python) / `0o600` (Node) permissions
+- Each email has fully isolated project data
+- No third-party analytics or telemetry
+
+**"Can I use this in production?"**
+
+Yes. The core routing and memory layers are battle-tested. Pin your version:
+- Python: `pip install cortyxia==0.1.16`
+- TypeScript: `npm install cortyxia@0.1.13`
+
+---
+
+## License
+
+MIT

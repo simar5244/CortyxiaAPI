@@ -220,10 +220,6 @@ Full API reference: [cortyxia.com/docs](https://cortyxia.com/docs)
 
 ## FAQ
 
-**"What if Cortyxia goes down? Do my prompts break?"**
-
-Your prompts don't change. The response shape is identical to OpenAI's. If Cortyxia is unavailable, swap back to your original provider in one line. Your code stays the same.
-
 **"Do I need to redesign my app architecture?"**
 
 No. If you're already calling `chat.completions.create()`, you change the import. That's it. Memory happens automatically in the background.
